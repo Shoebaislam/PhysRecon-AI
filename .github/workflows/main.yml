@@ -1,0 +1,38 @@
+
+name: PhysRecon-AI Validation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  reconstruction-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run reconstruction smoke test
+        run: python run.py --size 128 --iterations 8 --out ci-results
+
+      - name: Verify output files
+        run: |
+          test -s ci-results/metrics.csv
+          test -s ci-results/metrics.json
+          test -s ci-results/reconstruction_comparison.png
+          test -s ci-results/noise_robustness.png
+
+      - name: Upload experiment artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: reconstruction-test-results
+          path: ci-results/
