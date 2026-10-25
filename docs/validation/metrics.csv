@@ -1,0 +1,7 @@
+dataset,acquisition,method,noise_sigma_fraction,acceleration,iterations,lambda_tv,runtime_seconds,kspace_relative_residual,psnr_db,ssim
+simulated_shepp_logan,retrospective_simulation,zero_filled,0.0,4.0,0,0,0.008665401000001793,2.800207640760424e-16,15.325033856475837,0.5115489284216003
+simulated_shepp_logan,retrospective_simulation,tv_fista,0.0,4.0,80,0.015,6.26762790799998,0.029813967315133715,15.298451497070998,0.512215898662469
+simulated_shepp_logan,retrospective_simulation,zero_filled,0.01,4.0,0,0,0.002652108999996017,0.007038029260610112,15.324817091218382,0.5107611532368788
+simulated_shepp_logan,retrospective_simulation,tv_fista,0.01,4.0,80,0.015,4.740356043999981,0.031103006995482116,15.298649836723957,0.5121533702181408
+simulated_shepp_logan,retrospective_simulation,zero_filled,0.03,4.0,0,0,0.002654470999999603,0.02140147071686849,15.323088069506145,0.5045936615392699
+simulated_shepp_logan,retrospective_simulation,tv_fista,0.03,4.0,80,0.015,4.663496147999979,0.04121179351783415,15.29746687957289,0.5119850521649939

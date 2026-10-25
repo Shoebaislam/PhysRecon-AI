@@ -1,0 +1,89 @@
+{
+  "description": "Simulated phantom MRI inverse problem; NOT scanner data",
+  "transform": "centered 2D orthonormal FFT",
+  "mask": "uniform every 4th ky row; exact 4x without ACS",
+  "noise": "complex Gaussian noise on acquired coefficients; sigma fraction of measured RMS",
+  "rng_seed": 42,
+  "image_size": 256,
+  "regularization": "real-valued TV proximal-gradient FISTA; soft data fidelity",
+  "rows": [
+    {
+      "dataset": "simulated_shepp_logan",
+      "acquisition": "retrospective_simulation",
+      "method": "zero_filled",
+      "noise_sigma_fraction": 0.0,
+      "acceleration": 4.0,
+      "iterations": 0,
+      "lambda_tv": 0,
+      "runtime_seconds": 0.008665401000001793,
+      "kspace_relative_residual": 2.800207640760424e-16,
+      "psnr_db": 15.325033856475837,
+      "ssim": 0.5115489284216003
+    },
+    {
+      "dataset": "simulated_shepp_logan",
+      "acquisition": "retrospective_simulation",
+      "method": "tv_fista",
+      "noise_sigma_fraction": 0.0,
+      "acceleration": 4.0,
+      "iterations": 80,
+      "lambda_tv": 0.015,
+      "runtime_seconds": 6.26762790799998,
+      "kspace_relative_residual": 0.029813967315133715,
+      "psnr_db": 15.298451497070998,
+      "ssim": 0.512215898662469
+    },
+    {
+      "dataset": "simulated_shepp_logan",
+      "acquisition": "retrospective_simulation",
+      "method": "zero_filled",
+      "noise_sigma_fraction": 0.01,
+      "acceleration": 4.0,
+      "iterations": 0,
+      "lambda_tv": 0,
+      "runtime_seconds": 0.002652108999996017,
+      "kspace_relative_residual": 0.007038029260610112,
+      "psnr_db": 15.324817091218382,
+      "ssim": 0.5107611532368788
+    },
+    {
+      "dataset": "simulated_shepp_logan",
+      "acquisition": "retrospective_simulation",
+      "method": "tv_fista",
+      "noise_sigma_fraction": 0.01,
+      "acceleration": 4.0,
+      "iterations": 80,
+      "lambda_tv": 0.015,
+      "runtime_seconds": 4.740356043999981,
+      "kspace_relative_residual": 0.031103006995482116,
+      "psnr_db": 15.298649836723957,
+      "ssim": 0.5121533702181408
+    },
+    {
+      "dataset": "simulated_shepp_logan",
+      "acquisition": "retrospective_simulation",
+      "method": "zero_filled",
+      "noise_sigma_fraction": 0.03,
+      "acceleration": 4.0,
+      "iterations": 0,
+      "lambda_tv": 0,
+      "runtime_seconds": 0.002654470999999603,
+      "kspace_relative_residual": 0.02140147071686849,
+      "psnr_db": 15.323088069506145,
+      "ssim": 0.5045936615392699
+    },
+    {
+      "dataset": "simulated_shepp_logan",
+      "acquisition": "retrospective_simulation",
+      "method": "tv_fista",
+      "noise_sigma_fraction": 0.03,
+      "acceleration": 4.0,
+      "iterations": 80,
+      "lambda_tv": 0.015,
+      "runtime_seconds": 4.663496147999979,
+      "kspace_relative_residual": 0.04121179351783415,
+      "psnr_db": 15.29746687957289,
+      "ssim": 0.5119850521649939
+    }
+  ]
+}
