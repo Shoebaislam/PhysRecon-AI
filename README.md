@@ -1,45 +1,7 @@
 # PhysRecon-AI — Physics-Constrained MRI Inverse Reconstruction
-
-**Independent Fall 2027 PhD portfolio proof of concept** · inverse problems · computational imaging · optimization
-
-> **Data integrity:** The main experiment uses the synthetic Shepp–Logan phantom. Its k-space measurements are **simulated** by applying an FFT and retrospectively masking Fourier coefficients. This is **not real scanner-acquired MRI data**, and it is **not image classification**.
-
 ## Motivation
 
 Reconstruct 2D images from a small subset of their Fourier-domain measurements, with a known physics-based forward operator and an interpretable total-variation prior. Evaluate recovery quality, robustness, and computational cost.
-
-## Quickstart (Windows PowerShell)
-
-```powershell
-cd PhysRecon-AI
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python run.py
-```
-
-If PowerShell blocks venv activation, call `.\.venv\Scripts\python.exe -m pip install -r requirements.txt` and `.\.venv\Scripts\python.exe run.py` instead.
-
-Approximate runtime depends on machine, Python environment, and iteration count. For a quicker check: `python run.py --size 128 --iterations 30` (results differ).
-
-## Forward model and optimization
-
-Let `x` be the real-valued reference intensity image, `F` an orthonormal centered 2D FFT, and `M` a Cartesian k-space mask. Then `y = M F x + epsilon`, with optional complex Gaussian noise only on acquired frequencies.
-
-**Baseline:** real part of `F^-1 y` (zero-filled inverse Fourier reconstruction). For complex scanner data, a phase-aware algorithm will be necessary.
-
-**Optimization:**
-
-```text
-argmin_{x real} 0.5 || M F x - y ||_2^2 + lambda * TV(x)
-TV(x) = sum_pixels sqrt((Dx x)^2 + (Dy x)^2)   (isotropic discrete TV)
-```
-
-The solver uses proximal-gradient FISTA with an approximate TV proximal operator (`skimage.restoration.denoise_tv_chambolle`). The gradient of the data term is `Re[F^-1 M (M F x - y)]`. The orthonormal FFT and 0/1 mask imply a Lipschitz bound `L <= 1`, so step size 1 is valid. TV is a **soft prior**; fidelity is **soft data consistency**, not exact hard replacement of sampled coefficients. This is preferable to hard consistency in the presence of measurement noise.
-
-**Sampling:** exact 4x undersampling at 256×256: every 4th phase-encoding line, no autocalibration center (ACS). This intentionally simplistic uniform periodic mask creates strong coherent aliasing; production MRI often uses ACS and different masks. For other shapes, see the `--size` guard.
-
-**Noise levels:** 0%, 1%, and 3%. Noise is complex Gaussian on measured coefficients; noise fraction is relative to the RMS amplitude of *acquired* Fourier values, not pixel-wise image noise and not a scanner-reported SNR.
 
 ## Measured output (never predetermined)
 
