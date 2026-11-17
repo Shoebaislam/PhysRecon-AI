@@ -87,28 +87,4 @@ The exact reference-run CSV/JSON are archived in [`docs/validation/`](docs/valid
 - FISTA here uses a numerical, approximately solved TV proximal step; convergence diagnostics and a fully specified discretization should be added before research-grade comparisons.
 - Retrospectively masked full-data k-space is different from prospectively accelerated scanning.
 
-## fastMRI extension (not part of the validated MVP)
 
-The publicly described NYU fastMRI resource offers **raw k-space MRI measurements**, subject to its dataset access terms. See https://fastmri.med.nyu.edu/ and https://github.com/facebookresearch/fastMRI . Once a *singlecoil* HDF5 file is obtained, `fastmri_optional.py <file.h5>` checks its k-space representation, but **deliberately does not report metrics or pretend the real-valued phantom solver is correct for complex scanner measurements**. A defensible next step is to implement complex/phase-aware TV (or a phase-aware primal-dual solver), account for acquisition conventions and, for multicoil scans, coil sensitivities. Then measure reconstruction using retrospective masks and a clearly described reference.
-
-## Target research discussions
-
-Relevant themes: medical imaging and MRI inverse problems (Stanford John Pauly; MIT Polina Golland), computational inverse imaging (Stanford Gordon Wetzstein, Purdue Charles Bouman, Penn State Vishal Monga), and transferable inverse imaging concepts for materials characterization (UT Austin Yijin Liu). This is research-interest alignment, **not** an assertion of recruitment, endorsement, or direct MRI specialization for every professor.
-
-## GitHub
-
-```powershell
-git init
-git add README.md requirements.txt recon.py run.py fastmri_optional.py .gitignore
-git commit -m "Initial PhysRecon-AI MRI inverse reconstruction proof of concept"
-git branch -M main
-# Create an empty repository named PhysRecon-AI in GitHub, then:
-# git remote add origin https://github.com/YOUR_USERNAME/PhysRecon-AI.git
-# git push -u origin main
-```
-
-Only commit experimental metrics and plots after you have independently run the experiment and inspected the output. Do not commit fastMRI HDF5 files or other licensed data.
-
-## Suggested next experiments
-
-Parameter sweep over TV weights and iteration counts; radial/variable-density masks (matching desired acquisition model); independent MRI image references; robust, phase-aware singlecoil reconstruction; multicoil forward model; comparison with wavelet regularization and learned unrolled reconstruction.
