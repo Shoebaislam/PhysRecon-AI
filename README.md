@@ -1,4 +1,4 @@
-# PhysRecon-AI — Physics-Constrained MRI Inverse Reconstruction
+# PhysRecon-AI: Physics-Guided MRI Reconstruction from Incomplete Data
 ## Motivation
 
 Reconstruct 2D images from a small subset of their Fourier-domain measurements, with a known physics-based forward operator and an interpretable total-variation prior. Evaluate recovery quality, robustness, and computational cost.
